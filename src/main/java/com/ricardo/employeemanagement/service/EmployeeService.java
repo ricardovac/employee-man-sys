@@ -1,2 +1,4 @@
-package com.ricardo.employeemanagement.service;public class EmployeeService {
+package com.ricardo.employeemanagement.service;
+
+public class EmployeeService {
 }
