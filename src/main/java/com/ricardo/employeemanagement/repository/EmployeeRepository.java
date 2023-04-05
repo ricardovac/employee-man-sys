@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
+    public Iterable<Employee> findByFirst_nameAndLast_nameIgnoreCase(String name);
 }
