@@ -1,4 +1,4 @@
-package com.ricardo.employeemanagement.controller;
+package com.ricardo.employeemanagement.controllers;
 
 import com.ricardo.employeemanagement.model.Employee;
 import com.ricardo.employeemanagement.repository.EmployeeRepository;
