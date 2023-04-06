@@ -1,11 +1,12 @@
 package com.ricardo.employeemanagement.controllers;
 
+import com.ricardo.employeemanagement.exceptions.EmployeeNotFoundException;
 import com.ricardo.employeemanagement.model.Employee;
 import com.ricardo.employeemanagement.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/employee")
@@ -13,6 +14,7 @@ public class EmployeeController {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    @ResponseStatus(HttpStatus.ACCEPTED)
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.PUT})
     public Employee saveEmployee(Employee employee) {
         employeeRepository.save(employee);
@@ -24,14 +26,19 @@ public class EmployeeController {
         return employeeRepository.findAll();
     }
 
-    @GetMapping(path = "/{id}")
-    public Optional<Employee> findById(@PathVariable int id) {
-        return employeeRepository.findById(id);
+    @GetMapping(path = "/page/{pageNumber}/{employeesAmount}")
+    public Iterable<Employee> getProductsByPages(
+            @PathVariable int pageNumber,
+            @PathVariable int employeesAmount
+    ) {
+        if (employeesAmount >= 5) employeesAmount = 5;
+        PageRequest page = PageRequest.of(pageNumber, employeesAmount);
+        return employeeRepository.findAll(page);
     }
 
-    @GetMapping(path = "/{name}")
-    public Iterable<Employee> findEmployeeByNameAndLastName(@PathVariable String name) {
-        return employeeRepository.findByFirst_nameAndLast_nameIgnoreCase(name);
+    @GetMapping("/{id}")
+    public Employee findEmployeeById(@PathVariable int id) {
+        return employeeRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);
     }
 
     @DeleteMapping(path = "/{id}")

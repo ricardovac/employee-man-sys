@@ -1,9 +1,6 @@
 package com.ricardo.employeemanagement.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
@@ -11,11 +8,14 @@ import jakarta.validation.constraints.NotBlank;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private int id;
     @NotBlank
-    private String first_name;
+    @Column(name = "FIRST_NAME")
+    private String firstName;
     @NotBlank
-    private String last_name;
+    @Column(name = "LAST_NAME")
+    private String lastName;
     @NotBlank
     @Email
     private String email;
@@ -24,9 +24,9 @@ public class Employee {
 
     }
 
-    public Employee(String first_name, String last_name, String email) {
-        this.first_name = first_name;
-        this.last_name = last_name;
+    public Employee(String firstName, String lastName, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
     }
 
@@ -39,19 +39,19 @@ public class Employee {
     }
 
     public String getFirst_name() {
-        return first_name;
+        return firstName;
     }
 
     public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+        this.firstName = first_name;
     }
 
     public String getLast_name() {
-        return last_name;
+        return lastName;
     }
 
     public void setLast_name(String last_name) {
-        this.last_name = last_name;
+        this.lastName = last_name;
     }
 
     public String getEmail() {
