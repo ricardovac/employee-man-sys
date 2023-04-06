@@ -31,8 +31,8 @@
     <div class="container-fluid p-5 text-center">
         <h1>A</h1>
     </div>
+    <a class="btn btn-primary btn-sm mb-3" th:href="@{/showNewEmployeeForm}">Add Employee</a>
     <div class="my-25">
-        <a th:href = "@{/showNewEmployeeForm}" class="btn btn-primary btn-sm mb-3">
         <table class="table table-striped">
             <thead class="thead-dark">
             <tr>
@@ -48,9 +48,7 @@
                 <td th:text="${employee.last_name}"></td>
                 <td th:text="${employee.email}"></td>
                 <td>
-                    <button class="btn btn-info" type="button">Update</button>
-                    <button class="btn btn-danger" type="button">Delete</button>
-                    <button class="btn btn-info" type="button">View</button>
+                    <a class="btn btn-danger" th:href="@{/deleteEmployee/{id}(id=${employee.id})}">Delete</a>
                 </td>
             </tr>
             </tbody>

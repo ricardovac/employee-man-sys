@@ -31,9 +31,17 @@ public class EmployeeController {
         return employeeService.findEmployeeById(id);
     }
 
-    @DeleteMapping(path = "/{id}")
-    public void deleteEmployee(@PathVariable int id) {
+    @GetMapping(path = "/deleteEmployee/{id}")
+    public String deleteEmployee(@PathVariable("id") int id) {
         employeeService.deleteEmployee(id);
+        return "redirect:/";
+    }
+
+    @GetMapping("/showNewEmployeeForm")
+    public String showNewEmployeeForm(Model model) {
+        Employee employee = new Employee();
+        model.addAttribute("employee", employee);
+        return "newEmployeeForm";
     }
 
     @RequestMapping(value = "/page/{pageNo}", method = RequestMethod.GET)
