@@ -41,4 +41,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
         return this.employeeRepository.findAll(pageable);
     }
+
+    public void updateEmployee(Employee employee) {
+        employeeRepository.save(employee);
+    }
 }
