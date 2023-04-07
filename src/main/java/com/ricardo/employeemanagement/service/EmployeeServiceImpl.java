@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -28,7 +29,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee findEmployeeById(int id) {
-        return employeeRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);
+        Optional<Employee> optionalEmployee = employeeRepository.findById(id);
+        Employee employee = null;
+        if (optionalEmployee.isPresent()) {
+            employee = optionalEmployee.get();
+        } else {
+            throw new EmployeeNotFoundException();
+        }
+        return employee;
     }
 
     @Override
@@ -40,9 +48,5 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Page<Employee> findPaginated(int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
         return this.employeeRepository.findAll(pageable);
-    }
-
-    public void updateEmployee(Employee employee) {
-        employeeRepository.save(employee);
     }
 }

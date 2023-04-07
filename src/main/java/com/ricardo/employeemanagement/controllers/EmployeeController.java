@@ -21,13 +21,6 @@ public class EmployeeController {
         return "redirect:/";
     }
 
-    @PostMapping("/updateEmployee/{id}")
-    public String update(@PathVariable int id, @ModelAttribute Employee employee) {
-        employee.setId(id);
-        employeeService.updateEmployee(employee);
-        return "redirect:/";
-    }
-
     @GetMapping(path = "/deleteEmployee/{id}")
     public String deleteEmployee(@PathVariable("id") int id) {
         employeeService.deleteEmployee(id);
@@ -42,6 +35,13 @@ public class EmployeeController {
     @GetMapping("/{id}")
     public Employee findEmployeeById(@PathVariable int id) {
         return employeeService.findEmployeeById(id);
+    }
+
+    @GetMapping("/updateEmployee/{id}")
+    public String showFormForUpdate(@PathVariable int id, Model model) {
+        Employee employee = employeeService.findEmployeeById(id);
+        model.addAttribute("employee", employee);
+        return "updateEmployee";
     }
 
     @GetMapping("/showNewEmployeeForm")
