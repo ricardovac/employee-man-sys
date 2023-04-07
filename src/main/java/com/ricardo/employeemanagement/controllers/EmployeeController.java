@@ -44,7 +44,7 @@ public class EmployeeController {
         return "updateEmployee";
     }
 
-    @GetMapping("/showNewEmployeeForm")
+    @GetMapping("/newEmployee")
     public String showNewEmployeeForm(Model model) {
         Employee employee = new Employee();
         model.addAttribute("employee", employee);
@@ -53,15 +53,21 @@ public class EmployeeController {
 
     @RequestMapping(value = "/page/{pageNo}", method = RequestMethod.GET)
     public String findPaginated(@PathVariable int pageNo, Model model) {
-        int pageSize = 5;
+        int pageSize = 10;
+        int maxPagesToShow = 7;
 
         Page<Employee> page = employeeService.findPaginated(pageNo, pageSize);
         List<Employee> listEmployees = page.getContent();
+
+        int startPage = Math.max(1, pageNo - maxPagesToShow / 2);
+        int endPage = Math.min(page.getTotalPages(), pageNo + maxPagesToShow / 2);
 
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("totalItems", page.getTotalElements());
         model.addAttribute("listEmployees", listEmployees);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
         return "homePage";
     }
 
