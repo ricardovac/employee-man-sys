@@ -27,18 +27,29 @@ public class Employee {
     private String phone;
     @Column(name = "DEPARTMENT")
     private String department;
+    @Column(name = "PHOTO_NAME")
+    private String photoName;
 
-    public Employee(String firstName, String lastName, String email, String address, String phone, String department, String photos) {
+    public Employee(String firstName, String lastName, String email, String address, String phone, String department, String photoName) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.address = address;
         this.phone = phone;
         this.department = department;
+        this.photoName = photoName;
     }
 
     public Employee() {
 
+    }
+
+    public String getPhotoName() {
+        return photoName;
+    }
+
+    public void setPhotoName(String photoName) {
+        this.photoName = photoName;
     }
 
     public String getDepartment() {

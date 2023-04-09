@@ -15,37 +15,39 @@
         <h1>Add Employee</h1>
     </div>
     <div class="container mt-5">
-        <form action="#" class="mx-6" method="post" th:action="@{/saveEmployee}" th:object="${employee}">
+        <form action="/saveEmployee" class="mx-6" enctype="multipart/form-data" method="post">
             <div class="form-row justify-content-between">
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label">Name</label>
                     <div class="col-sm-4">
                         <label class="col-sm-4 col-form-label" for="staticFirstName">First Name <span
                                 class="text-danger">*</span></label>
-                        <input class="form-control mb-4" id="staticFirstName" placeholder="John"
-                               th:field="*{first_name}" type="text">
+                        <input class="form-control mb-4" id="staticFirstName" name="first_name"
+                               placeholder="John"
+                               type="text">
                     </div>
                     <div class="col">
                         <label class="col-sm-4 col-form-label" for="staticLastName">Last Name <span
                                 class="text-danger">*</span></label>
-                        <input class="form-control mb-4" id="staticLastName" placeholder="Doe"
-                               th:field="*{last_name}" type="text">
+                        <input class="form-control mb-4" id="staticLastName" name="last_name"
+                               placeholder="Doe"
+                               type="text">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label" for="staticEmail">Email <span
                             class="text-danger">*</span></label>
                     <div class="col-sm-8">
-                        <input class="form-control mb-4" id="staticEmail" placeholder="email@example.com"
-                               th:field="*{email}"
+                        <input class="form-control mb-4" id="staticEmail" name="email"
+                               placeholder="email@example.com"
                                type="text">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label" for="staticPhone">Phone</label>
                     <div class="col-sm-8">
-                        <input class="form-control mb-4" id="staticPhone" placeholder="Enter phone number"
-                               th:field="*{phone}"
+                        <input class="form-control mb-4" id="staticPhone" name="phone"
+                               placeholder="Enter phone number"
                                type="text">
                     </div>
                 </div>
@@ -53,8 +55,8 @@
                     <label class="col-sm-4 col-form-label" for="staticAddress">Address <span
                             class="text-danger">*</span></label>
                     <div class="col-sm-8">
-                        <input class="form-control mb-4" id="staticAddress" placeholder="Main St."
-                               th:field="*{address}"
+                        <input class="form-control mb-4" id="staticAddress" name="address"
+                               placeholder="Main St."
                                type="text">
                     </div>
                 </div>
@@ -62,12 +64,20 @@
                     <label class="col-sm-4 col-form-label" for="employeeDepartment">Department <span
                             class="text-danger">*</span></label>
                     <div class="col-sm-8">
-                        <select class="form-select" id="employeeDepartment" th:field="*{department}">
+                        <select class="form-select" id="employeeDepartment"
+                                name="department">
                             <option th:text="Sales" th:value="'Sales'"></option>
                             <option th:text="Marketing" th:value="'Marketing'"></option>
                             <option th:text="Engineering" th:value="'Engineering'"></option>
                             <option th:text="HumanResources" th:value="'Human Resources'"></option>
                         </select>
+                    </div>
+                </div>
+                <br/>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="staticPhoto">Photo </label>
+                    <div class="col-sm-8">
+                        <input class="form-control mb-4" id="staticPhoto" name="file" type="file">
                     </div>
                 </div>
             </div>

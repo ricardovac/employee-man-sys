@@ -14,22 +14,42 @@
     <h1>Employee Full Info</h1>
 </div>
 <div th:each="employee: ${employee}">
-    <div class="container">
+    <div class="container my-5">
         <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card mx-auto">
+            <div class="col-md-8">
+                <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Employee Profile</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">
-                            <span th:text="${employee.first_name}"></span>
-                            <span th:text="${employee.last_name}"></span>
-                        </h6>
-                        <span class="text-muted" th:text="${employee.email}"></span>
-                        <p class="card-text">
-                            <strong>Address:</strong> <span th:text="${employee.address}"></span><br>
-                            <strong>Phone:</strong> <span th:text="${employee.phone}"></span><br>
-                            <strong>Department:</strong> <span th:text="${employee.department}"></span><br>
-                        </p>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h2 class="card-title mb-4">Employee Profile</h2>
+                                <h4 class="card-subtitle mb-2">
+                                    <span th:text="${employee.first_name}"></span>
+                                    <span th:text="${employee.last_name}"></span>
+                                </h4>
+                                <p class="card-text">
+                                    <i class="fas fa-envelope mr-2"></i>
+                                    <span class="text-muted" th:text="${employee.email}"></span>
+                                </p>
+                                <hr>
+                                <p class="card-text">
+                                    <strong>Address:</strong>
+                                    <span class="ml-2" th:text="${employee.address}"></span>
+                                </p>
+                                <p class="card-text">
+                                    <strong>Phone:</strong>
+                                    <span class="ml-2" th:text="${employee.phone}"></span>
+                                </p>
+                                <p class="card-text">
+                                    <strong>Department:</strong>
+                                    <span class="ml-2" th:text="${employee.department}"></span>
+                                </p>
+                            </div>
+                            <div class="col-md-4">
+                                <img alt="" class="img-fluid rounded"
+                                     id="employee-photo"
+                                     src="" th:src="@{/viewPhoto/{photo}(photo=${employee.photoName})}">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -37,4 +57,10 @@
     </div>
 </div>
 </body>
+<script>
+    const img = document.getElementById("employee-photo");
+    img.onerror = function () {
+        img.src = "https://graph.facebook.com/4/picture?width=150&height=150";
+    }
+</script>
 </html>

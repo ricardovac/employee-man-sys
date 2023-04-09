@@ -15,7 +15,7 @@ import java.util.Optional;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
-    public EmployeeRepository employeeRepository;
+    private EmployeeRepository employeeRepository;
 
     @Override
     public void saveEmployee(Employee employee) {

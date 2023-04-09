@@ -7,17 +7,36 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Controller
 public class EmployeeController {
+    private final String imagePath = "src/main/resources/static/img/";
     @Autowired
     private EmployeeService employeeService;
 
-    @PostMapping("/saveEmployee")
-    public String saveEmployee(@ModelAttribute("employee") Employee employee) {
-        employeeService.saveEmployee(employee);
+    @PostMapping(value = "/saveEmployee")
+    public String saveEmployee(@ModelAttribute("employee") Employee employee, @RequestParam("file") MultipartFile file) {
+        try {
+            if (!file.isEmpty()) {
+                byte[] bytes = file.getBytes();
+                Path path = Paths.get(imagePath + employee.getId() + file.getOriginalFilename());
+                Files.write(path, bytes);
+
+                employee.setPhotoName(employee.getId() + file.getOriginalFilename());
+                employeeService.saveEmployee(employee);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return "redirect:/";
     }
 
@@ -56,6 +75,16 @@ public class EmployeeController {
         Employee employee = employeeService.findEmployeeById(id);
         model.addAttribute("employee", employee);
         return "showEmployee";
+    }
+
+    @GetMapping("/viewPhoto/{photo}")
+    @ResponseBody
+    public byte[] showPhoto(@PathVariable String photo) throws IOException {
+        File imageFile = new File(imagePath + photo);
+        if (photo.trim().length() > 0) {
+            return Files.readAllBytes(imageFile.toPath());
+        }
+        return null;
     }
 
     @RequestMapping(value = "/page/{pageNo}", method = RequestMethod.GET)
