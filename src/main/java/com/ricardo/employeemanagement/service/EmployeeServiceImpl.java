@@ -41,7 +41,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void deleteEmployee(int id) {
-        employeeRepository.deleteById(id);
+        Optional<Employee> optionalEmployee = employeeRepository.findById(id);
+        if (optionalEmployee.isPresent()) {
+            employeeRepository.deleteById(id);
+        } else {
+            throw new EmployeeNotFoundException();
+        }
     }
 
     @Override

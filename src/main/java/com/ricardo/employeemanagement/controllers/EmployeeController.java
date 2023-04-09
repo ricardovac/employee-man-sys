@@ -44,11 +44,18 @@ public class EmployeeController {
         return "updateEmployee";
     }
 
-    @GetMapping("/newEmployee")
+    @GetMapping("/addEmployee")
     public String showNewEmployeeForm(Model model) {
         Employee employee = new Employee();
         model.addAttribute("employee", employee);
-        return "newEmployeeForm";
+        return "addEmployee";
+    }
+
+    @GetMapping("/viewEmployee/{id}")
+    public String showEmployeeInfo(@PathVariable int id, Model model) {
+        Employee employee = employeeService.findEmployeeById(id);
+        model.addAttribute("employee", employee);
+        return "showEmployee";
     }
 
     @RequestMapping(value = "/page/{pageNo}", method = RequestMethod.GET)

@@ -34,17 +34,38 @@ public class DataSeeder implements CommandLineRunner {
                 "Edwards", "Collins", "Stewart", "Sanchez", "Morris", "Rogers", "Reed", "Cook"
         };
 
+        String[] streetNames = {"Main St.", "Oak St.", "Elm St.", "Maple Ave.", "Cedar Ln."};
+        String[] cities = {"New York", "Los Angeles", "Chicago", "Houston", "Phoenix", "Philadelphia", "San Antonio", "San Diego", "Dallas", "San Jose"};
+        String[] states = {"NY", "CA", "IL", "TX", "AZ", "PA", "TX", "CA", "TX", "CA"};
+        String[] phones = {"123", "456", "789", "555", "111", "222", "333", "444", "666", "777", "888", "999"};
+        String[] departaments = {"Sales", "Engineering", "Human Resources", "Marketing"};
+
+        String[] address = new String[41];
+        for (int i = 0; i < address.length; i++) {
+            int streetIndex = (int) (Math.random() * streetNames.length);
+            int cityIndex = (int) (Math.random() * cities.length);
+            int stateIndex = (int) (Math.random() * states.length);
+            int zipCode = (int) (Math.random() * 90000) + 10000; // Generate a random 5-digit number between 10000 and 99999
+            address[i] = streetNames[streetIndex] + ", " + cities[cityIndex] + ", " + states[stateIndex] + " " + zipCode;
+        }
+
         Random random = new Random();
 
         for (int i = 0; i < 10; i++) {
             String firstName = firstNames[random.nextInt(firstNames.length)];
             String lastName = lastNames[random.nextInt(lastNames.length)];
+            String addressFill = address[random.nextInt(address.length)];
             String email = firstName.toLowerCase() + "." + lastName.toLowerCase() + "@example.com";
+            String phone = phones[random.nextInt(phones.length)];
+            String departament = departaments[random.nextInt(departaments.length)];
 
             Employee employee = new Employee();
             employee.setFirst_name(firstName);
             employee.setLast_name(lastName);
             employee.setEmail(email);
+            employee.setAddress(addressFill);
+            employee.setPhone(phone);
+            employee.setDepartment(departament);
 
             users.add(employee);
         }

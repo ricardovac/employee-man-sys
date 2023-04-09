@@ -19,15 +19,50 @@ public class Employee {
     @NotBlank
     @Email
     private String email;
+    @NotBlank
+    @Column(name = "ADDRESS")
+    private String address;
+    @NotBlank
+    @Column(name = "PHONE")
+    private String phone;
+    @Column(name = "DEPARTMENT")
+    private String department;
+
+    public Employee(String firstName, String lastName, String email, String address, String phone, String department, String photos) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.address = address;
+        this.phone = phone;
+        this.department = department;
+    }
 
     public Employee() {
 
     }
 
-    public Employee(String firstName, String lastName, String email) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public int getId() {
